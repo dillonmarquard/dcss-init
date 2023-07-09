@@ -1,0 +1,167 @@
+##### Crawl Init file ###############################################
+# For descriptions of all options, as well as some more in-depth information
+# on setting them, consult the file
+#    options_guide.txt
+# in your /docs directory. If you can't find it, the file is also available
+# online at:
+# https://github.com/crawl/crawl/blob/master/crawl-ref/docs/options_guide.txt
+#
+# Crawl uses the first file of the following list as its option file:
+#  * init.txt in the -rcdir directory (if specified)
+#  * .crawlrc in the -rcdir directory (if specified)
+#  * init.txt (in the Crawl directory)
+#  * ~/.crawl/init.txt (Unix only)
+#  * ~/.crawlrc (Unix only)
+#  * ~/init.txt (Unix only)
+#  * settings/init.txt (in the Crawl directory)
+
+##### Some basic explanation of option syntax #######################
+# Lines beginning with '#' are comments. The basic syntax is:
+#
+# field = value         or      field.subfield = value
+#
+# Only one specification is allowed per line.
+#
+# The terms are typically case-insensitive except in the fairly obvious
+# cases (the character's name and specifying files or directories when
+# on a system that has case-sensitive filenames).
+#
+# White space is stripped from the beginning and end of the line, as
+# well as immediately before and after the '='. If the option allows
+# multiple comma/semicolon-separated terms (such as
+# autopickup_exceptions), all whitespace around the separator is also
+# trimmed. All other whitespace is left intact.
+#
+# There are three broad types of Crawl options: true/false values (booleans),
+# arbitrary values, and lists of values. The first two types use only the
+# simple =, with later options - which includes your options that are different
+# from the defaults - overriding earlier ones. List options allow using +=, ^=,
+# -=, and = to append, prepend, remove, and reset, respectively. Usually you will
+# want to use += to add to a list option. Lastly, there is := which you can use
+# to create an alias, like so:
+#   ae := autopickup_exceptions
+# From there on, 'ae' will be treated as if it you typed autopickup_exceptions,
+# so you can save time typing it.
+#
+
+##### Other files ###################################################
+# You can include other files from your options file using the 'include'
+# option. Crawl will treat it as if you copied the whole text of that file
+# into your options file in that spot. You can uncomment some of the following
+# lines by removing the beginning '#' to include some of the other files in
+# this folder.
+
+# Some useful, more advanced options, implemented in LUA.
+# include = advanced_optioneering.txt
+
+# Alternative vi bindings for Dvorak users.
+# include = dvorak_command_keys.txt
+
+# Alternative vi bindings for Colemak users.
+# include = colemak_command_keys.txt
+
+# Alternative vi bindings for Neo users.
+# include = neo_command_keys.txt
+
+# Override the vi movement keys with a non-command.
+# include = no_vi_command_keys.txt
+
+# Turn the shift-vi keys into safe move, instead of run.
+# include = safe_move_shift.txt
+
+##### Ancient versions ##############################################
+# If you're used to the interface of ancient versions of Crawl, you may
+# get back parts of it by uncommenting the following options:
+
+# include                 = 034_command_keys.txt
+
+# And to revert monster glyph and colouring changes:
+
+# include                 = 052_monster_glyphs.txt
+# include                 = 060_monster_glyphs.txt
+# include                 = 071_monster_glyphs.txt
+# include                 = 080_monster_glyphs.txt
+# include                 = 0.9_monster_glyphs.txt
+# include                 = 0.12_monster_glyphs.txt
+# include                 = 0.13_monster_glyphs.txt
+# include                 = 0.14_monster_glyphs.txt
+
+# TEAMCAPTAIN 
+
+travel_delay = -1
+explore_delay = -1
+rest_delay = -1
+# try to increase flash_screen_message visibility with use_animations == false
+view_delay = 0
+show_travel_trail = true
+
+# megazigging
+show_more = false
+
+# try to prevent autopick from being interrupted during zig cleanup?
+travel_key_stop = false
+
+# re-set travel_open_doors = false, this was set in my old rc but removed -.-
+# travel_open_doors = avoid
+
+# This setting affects the time needed to hold down a key, before the game registers it as repeat inputs.
+# We basically never want this to happen.
+# It's only rarely desirable in realtime games, when autofighting groups of trivial mons by holding Tab.
+# Setting this too low will cause unintended multi-taps, setting this too high will cause holding Tab to take longer to trigger.
+# It's better to err on the side of setting this too high. 
+tile_key_repeat_delay = 25
+
+# try to force the game to redraw at minimum ~20fps, to help the player contextualize auto-handler actions
+# redrawing faster than this is probably excessive for online play, even though automated actions can and will occur much faster
+# TODO: Force a redraw and a small delay with every auto-handler action, so the player can see them?
+tile_update_rate = 50
+tile_runrest_rate = 50
+
+# prevent autofight from changing behavior at arbitrary HP threshold
+autofight_stop = 0
+
+# try to prevent movement key tapping deaths due to disabled mores
+# note: you need to force_more for this to work with show_more = false
+hp_warning = 50
+
+# allow specific force_mores through show_more = false
+force_more_message = 
+force_more_message += LOW HITPOINT WARNING
+
+# since we're clearing default force_mores, re-enable portal, zot clock,
+# and disto announcements, as not to miss them
+
+# default force_mores can be found at:
+# https://github.com/crawl/crawl/blob/master/crawl-ref/source/dat/defaults/messages.txt#L89
+# (some of these might be helpful to re-add later)
+
+## Zot is coming!
+force_more_message += You have lingered too long
+force_more_message += Zot draws nearer
+force_more_message += Zot has nearly found you
+force_more_message += Zot already knows
+force_more_message += Zot's attention fixes on you
+# Announcements of timed portal vaults:
+force_more_message += interdimensional caravan
+force_more_message += distant snort
+force_more_message += roar of battle
+force_more_message += wave of frost
+force_more_message += hiss of flowing sand
+force_more_message += sound of rushing water
+force_more_message += oppressive heat about you
+force_more_message += crackle of arcane power
+force_more_message += hear a distant wind
+## Dangerous weapons
+#force_more_message += is wielding.*distortion
+## dancing weapons require special handling...
+#force_more_message += there is a.*distortion
+#force_more_message += of distortion comes into view
+
+# flash screen for our scripted danger tier warnings above tier 2
+flash_screen_message += T2
+flash_screen_message += T3
+
+# tiles-specific options
+tile_show_threat_levels = tough, nasty
+cloud_status = true
+ 
